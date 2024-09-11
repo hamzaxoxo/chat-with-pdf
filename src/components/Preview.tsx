@@ -13,9 +13,11 @@ const Preview: React.FC<PreviewProps> = ({
   page
 }) => {
 
-  const [b64String, setb64String] = useState<string | null>(null)
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null)
 
   useEffect(() => {
+    const url = URL.createObjectURL(fileToPreview);
+    setPdfUrl(url);
     const options = {
       title: fileToPreview.name,
       pdfOpenParams: {
@@ -25,17 +27,15 @@ const Preview: React.FC<PreviewProps> = ({
         pageMode: 'none'
       }
     }
-    console.log(`Page: ${page}`)
-    const reader = new FileReader()
-    reader.onload = () => {
-      setb64String(reader.result as string);
-    }
-    reader.readAsDataURL(fileToPreview)
-    pdfobject.embed(b64String as string, "#pdfobject", options)
-  }, [page, b64String])
+    pdfobject.embed(url, "#pdfobject", options);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [fileToPreview, page]);
 
   return (
-    <div className="lg:w-1/2 w-full lg:h-full h-[50rem] roundex-xl" id="pdfobject">
+    <div className="lg:w-1/2 w-full lg:h-full h-[50rem] rounded-xl" id="pdfobject">
     </div>
   )
 }

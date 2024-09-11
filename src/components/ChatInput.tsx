@@ -1,5 +1,6 @@
 'use client';
 import React from "react";
+import Button from "./Button";
 
 type ChatInputProps = {
   onSendMessage: (message: string) => void;
@@ -65,7 +66,9 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
         </div>
       </div>
       <div className="ml-4">
-        <button onClick={handleSendClick} className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 rounded-xl text-white px-4 py-3">
+        <Button handleChange={(e: any) => {
+          handleSendClick();
+        }}>
           <span>Send</span>
           <span className="ml-2">
             <svg
@@ -83,7 +86,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
               />
             </svg>
           </span>
-        </button>
+        </Button>
       </div>
     </div>
   );

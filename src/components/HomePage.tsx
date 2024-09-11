@@ -3,7 +3,7 @@
 import React from 'react'
 import ChatScreen from './ChatScreen';
 import Preview from './Preview';
-import UploadFile from './UploadFile';
+import UploadFile from './Reader';
 
 export default function HomePage() {
     const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
